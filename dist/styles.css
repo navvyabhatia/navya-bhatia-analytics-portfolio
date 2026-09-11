@@ -947,6 +947,102 @@ select {
   font-size: 0.78rem;
 }
 
+.contact {
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+  color: #fff;
+  background: var(--blue);
+}
+
+.contact-shell {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: end;
+}
+
+.contact-kicker {
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact h2 {
+  max-width: 16ch;
+  margin-bottom: 0;
+  font-size: clamp(2.7rem, 5.8vw, 5.5rem);
+  font-weight: 620;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.contact-actions {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.button--light {
+  color: var(--blue-deep);
+  background: #fff;
+}
+
+.button--light:hover {
+  background: var(--cloud-blue);
+}
+
+.contact-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-underline-offset: 0.3rem;
+}
+
+.site-footer {
+  padding-block: 2rem;
+  background: var(--blue-deep);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.site-footer .brand {
+  color: #fff;
+}
+
+.site-footer .brand-mark {
+  color: var(--blue-deep);
+  background: #fff;
+}
+
+.footer-grid p {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.footer-links a {
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-underline-offset: 0.25rem;
+}
+
+.footer-note {
+  grid-column: 2 / -1;
+}
+
 @media (max-width: 700px) {
   .container {
     width: min(calc(100% - 1.25rem), var(--max-width));
@@ -1055,6 +1151,28 @@ select {
   .education-card {
     min-height: 17rem;
     gap: 2.5rem;
+  }
+
+  .contact-shell,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact h2 {
+    font-size: clamp(2.65rem, 14vw, 4.5rem);
+  }
+
+  .button--light {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+  }
+
+  .footer-note {
+    grid-column: auto;
   }
 }
 
