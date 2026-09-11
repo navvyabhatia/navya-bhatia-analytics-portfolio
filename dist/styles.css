@@ -16,6 +16,8 @@
   --max-width: 1180px;
   --shadow-sm: 0 8px 30px rgba(11, 43, 89, 0.08);
   --shadow-lg: 0 24px 70px rgba(11, 43, 89, 0.13);
+  --ease-out: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,
@@ -100,6 +102,17 @@ select {
   transform: translateY(0);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .container {
   width: min(calc(100% - 2rem), var(--max-width));
   margin-inline: auto;
@@ -168,6 +181,10 @@ select {
   backdrop-filter: blur(18px);
 }
 
+.motion-ready .site-header {
+  animation: header-drop 650ms var(--ease-spring) both;
+}
+
 .scroll-progress {
   width: 100%;
   height: 2px;
@@ -234,6 +251,13 @@ select {
   font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
+  transition: background 180ms ease, transform 180ms var(--ease-out), box-shadow 180ms ease;
+}
+
+.nav-contact:hover {
+  background: var(--blue);
+  box-shadow: 0 8px 20px rgba(7, 94, 232, 0.2);
+  transform: translateY(-2px);
 }
 
 .hero {
@@ -254,6 +278,10 @@ select {
   border-radius: 50%;
   filter: blur(8px);
   transform: translateY(-32%);
+}
+
+.motion-ready .hero::after {
+  animation: orb-drift 9s ease-in-out infinite alternate;
 }
 
 .hero-grid {
@@ -279,6 +307,10 @@ select {
   background: currentColor;
   border-radius: 50%;
   box-shadow: 0 0 0 5px rgba(19, 122, 91, 0.12);
+}
+
+.motion-ready .availability span {
+  animation: status-pulse 2.4s ease-out infinite;
 }
 
 .hero h1 {
@@ -333,10 +365,15 @@ select {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.7;
+  transition: transform 180ms var(--ease-out);
 }
 
 .button:hover {
   transform: translateY(-2px);
+}
+
+.button:hover svg {
+  transform: translateX(3px);
 }
 
 .button--primary {
@@ -364,23 +401,54 @@ select {
 }
 
 .signal-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
   position: relative;
+  overflow: hidden;
   padding: clamp(1.4rem, 3vw, 2.2rem);
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--line);
   border-radius: 1.5rem;
   box-shadow: var(--shadow-lg);
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition: transform 220ms var(--ease-out), box-shadow 220ms ease;
+  will-change: transform;
 }
 
 .signal-card::before {
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
+  z-index: 2;
   width: 0.55rem;
   height: 0.55rem;
   content: "";
   background: var(--coral);
   border-radius: 50%;
+}
+
+.signal-card::after {
+  position: absolute;
+  inset: -60% -35%;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(105deg, transparent 43%, rgba(255, 255, 255, 0.88) 50%, transparent 57%);
+  transform: translateX(-48%) rotate(8deg);
+}
+
+.signal-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.motion-started .signal-card::after {
+  animation: card-sheen 950ms var(--ease-out) 900ms both;
+}
+
+.signal-card:hover {
+  box-shadow: 0 30px 80px rgba(11, 43, 89, 0.17);
 }
 
 .signal-card__topline,
@@ -417,6 +485,7 @@ select {
   font-weight: 660;
   letter-spacing: -0.055em;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .signal-card__metric span {
@@ -462,6 +531,8 @@ select {
 }
 
 .value-item {
+  position: relative;
+  overflow: hidden;
   display: grid;
   min-height: 13rem;
   grid-template-columns: auto 1fr;
@@ -470,6 +541,23 @@ select {
   padding: 1.75rem;
   color: #fff;
   border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.value-item::after {
+  position: absolute;
+  right: 1.75rem;
+  bottom: 0;
+  left: 1.75rem;
+  height: 2px;
+  content: "";
+  background: var(--coral);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms var(--ease-spring) 180ms;
+}
+
+.value-item.is-visible::after {
+  transform: scaleX(1);
 }
 
 .value-item:last-child {
@@ -522,7 +610,7 @@ select {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 1.5rem;
-  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  transition: transform 260ms var(--ease-spring), box-shadow 260ms ease, border-color 260ms ease;
 }
 
 .project-card:hover,
@@ -530,6 +618,37 @@ select {
   border-color: var(--line-strong);
   box-shadow: var(--shadow-sm);
   transform: translateY(-4px);
+}
+
+.project-card__number,
+.project-card__type,
+.project-card__tags span {
+  transition: color 180ms ease, transform 220ms var(--ease-spring), border-color 180ms ease;
+}
+
+.project-card:hover .project-card__number {
+  transform: translateX(4px);
+}
+
+.project-card:hover .project-card__type {
+  transform: translateX(-4px);
+}
+
+.project-card:hover .project-card__tags span {
+  border-color: var(--blue-soft);
+  transform: translateY(-2px);
+}
+
+.project-card:hover .project-card__tags span:nth-child(2) {
+  transition-delay: 35ms;
+}
+
+.project-card:hover .project-card__tags span:nth-child(3) {
+  transition-delay: 70ms;
+}
+
+.project-card:hover .project-card__tags span:nth-child(4) {
+  transition-delay: 105ms;
 }
 
 .project-card--featured {
@@ -670,6 +789,11 @@ select {
   min-height: 28rem;
   padding: 1.5rem;
   border-right: 1px solid var(--line);
+  transition: background 220ms ease;
+}
+
+.workflow-step:hover {
+  background: var(--cloud-blue);
 }
 
 .workflow-step:last-child {
@@ -701,6 +825,11 @@ select {
   color: var(--blue);
   font-size: 0.78rem;
   font-weight: 800;
+  transition: transform 240ms var(--ease-spring);
+}
+
+.workflow-step:hover .workflow-step__number {
+  transform: translateY(-4px);
 }
 
 .workflow-step h3 {
@@ -738,7 +867,13 @@ select {
   margin-top: 1rem;
   padding: 1.5rem;
   background: var(--blue-deep);
+  background-image: linear-gradient(110deg, var(--blue-deep) 0%, #113c70 48%, var(--blue-deep) 100%);
+  background-size: 220% 100%;
   border-radius: 1rem;
+}
+
+.tool-belt.is-visible {
+  animation: belt-highlight 1.3s var(--ease-out) both;
 }
 
 .tool-belt p {
@@ -797,11 +932,30 @@ select {
 }
 
 .timeline-item {
+  position: relative;
   display: grid;
   grid-template-columns: 9.5rem 1fr;
   gap: 2rem;
   padding-block: 2.25rem;
   border-bottom: 1px solid var(--line);
+}
+
+.timeline-item::before {
+  position: absolute;
+  top: 1.75rem;
+  bottom: 1.75rem;
+  left: 0;
+  width: 3px;
+  content: "";
+  background: var(--blue);
+  border-radius: 999px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 620ms var(--ease-spring) 160ms;
+}
+
+.timeline-item.is-visible::before {
+  transform: scaleY(1);
 }
 
 .timeline-item__meta {
@@ -861,6 +1015,13 @@ select {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 1.25rem;
+  transition: transform 240ms var(--ease-spring), box-shadow 240ms ease;
+}
+
+.education-card:hover,
+.has-reveal .education-card.is-visible:hover {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-3px);
 }
 
 .education-card--primary {
@@ -966,16 +1127,114 @@ select {
 .has-reveal .workflow-step,
 .has-reveal .timeline-item,
 .has-reveal .education-card,
-.has-reveal .certifications {
+.has-reveal .certifications,
+.has-reveal .section .eyebrow,
+.has-reveal .section-heading-row > *,
+.has-reveal .experience-intro > *,
+.has-reveal .tool-belt,
+.has-reveal .contact-shell > * {
   opacity: 0;
-  transform: translateY(1rem);
-  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.75, 0.2, 1);
-  transition-delay: calc(var(--reveal-order, 0) * 55ms);
+  transform: translateY(1.35rem) scale(0.99);
+  transition: opacity 620ms ease, transform 620ms var(--ease-spring);
+  transition-delay: calc(var(--reveal-order, 0) * 70ms);
 }
 
 .has-reveal .is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.motion-ready .hero-copy > *,
+.motion-ready .signal-card {
+  opacity: 0;
+  translate: 0 1.25rem;
+}
+
+.motion-started .hero-copy > *,
+.motion-started .signal-card {
+  animation: rise-in 720ms var(--ease-spring) both;
+}
+
+.motion-started .hero-copy > :nth-child(1) {
+  animation-delay: 90ms;
+}
+
+.motion-started .hero-copy > :nth-child(2) {
+  animation-delay: 170ms;
+}
+
+.motion-started .hero-copy > :nth-child(3) {
+  animation-delay: 260ms;
+}
+
+.motion-started .hero-copy > :nth-child(4) {
+  animation-delay: 350ms;
+}
+
+.motion-started .hero-copy > :nth-child(5) {
+  animation-delay: 430ms;
+}
+
+.motion-started .signal-card {
+  animation-delay: 320ms;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes header-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes status-pulse {
+  0%, 45% {
+    box-shadow: 0 0 0 5px rgba(19, 122, 91, 0.12);
+  }
+  75%, 100% {
+    box-shadow: 0 0 0 11px rgba(19, 122, 91, 0);
+  }
+}
+
+@keyframes orb-drift {
+  from {
+    transform: translate3d(0, -32%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-2.5rem, -27%, 0) scale(1.07);
+  }
+}
+
+@keyframes card-sheen {
+  from {
+    transform: translateX(-48%) rotate(8deg);
+  }
+  to {
+    transform: translateX(48%) rotate(8deg);
+  }
+}
+
+@keyframes belt-highlight {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
 
 .contact {
@@ -1244,8 +1503,23 @@ select {
   .has-reveal .workflow-step,
   .has-reveal .timeline-item,
   .has-reveal .education-card,
-  .has-reveal .certifications {
+  .has-reveal .certifications,
+  .has-reveal .section .eyebrow,
+  .has-reveal .section-heading-row > *,
+  .has-reveal .experience-intro > *,
+  .has-reveal .tool-belt,
+  .has-reveal .contact-shell > * {
     opacity: 1;
+    transform: none;
+  }
+
+  .motion-ready .hero-copy > *,
+  .motion-ready .signal-card {
+    opacity: 1;
+    translate: none;
+  }
+
+  .signal-card {
     transform: none;
   }
 }
@@ -1308,7 +1582,12 @@ select {
   .has-reveal .workflow-step,
   .has-reveal .timeline-item,
   .has-reveal .education-card,
-  .has-reveal .certifications {
+  .has-reveal .certifications,
+  .has-reveal .section .eyebrow,
+  .has-reveal .section-heading-row > *,
+  .has-reveal .experience-intro > *,
+  .has-reveal .tool-belt,
+  .has-reveal .contact-shell > * {
     opacity: 1;
     transform: none;
   }
