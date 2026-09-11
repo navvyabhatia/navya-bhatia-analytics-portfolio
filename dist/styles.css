@@ -826,6 +826,127 @@ select {
   margin-bottom: 0;
 }
 
+.education-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 1rem;
+}
+
+.education-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.education-card {
+  display: grid;
+  min-height: 15.5rem;
+  grid-template-columns: 8rem 1fr;
+  gap: 2rem;
+  align-items: end;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+}
+
+.education-card--primary {
+  color: #fff;
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.education-card__year {
+  align-self: start;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.education-card--primary .education-card__year {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.education-card p {
+  margin-bottom: 0.7rem;
+  color: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.education-card--primary p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.education-card h3 {
+  max-width: 20ch;
+  margin-bottom: 0.65rem;
+  font-size: clamp(1.75rem, 3.2vw, 3rem);
+  font-weight: 610;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.education-card span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.education-card--primary span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.certifications {
+  padding: 2rem;
+  color: #fff;
+  background: var(--blue-deep);
+  border-radius: 1.25rem;
+}
+
+.certifications__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.17);
+}
+
+.certifications__header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.certifications__header span {
+  color: #90bdff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.certifications ol {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.certifications li {
+  display: grid;
+  gap: 2rem;
+  padding-block: 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.certifications li span {
+  font-weight: 680;
+  line-height: 1.25;
+}
+
+.certifications time {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+}
+
 @media (max-width: 700px) {
   .container {
     width: min(calc(100% - 1.25rem), var(--max-width));
@@ -924,6 +1045,16 @@ select {
 
   .timeline-item {
     gap: 1.25rem;
+  }
+
+  .education-layout,
+  .education-card {
+    grid-template-columns: 1fr;
+  }
+
+  .education-card {
+    min-height: 17rem;
+    gap: 2.5rem;
   }
 }
 
