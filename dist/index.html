@@ -8,12 +8,86 @@
       name="description"
       content="Navya Bhatia is a business analytics graduate student building predictive models, decision-ready dashboards, and practical AI solutions."
     />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23075ee8'/%3E%3Cpath d='M16 46V18h8l16 18V18h8v28h-8L24 28v18z' fill='white'/%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <main id="main"></main>
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="brand" href="#top" aria-label="Navya Bhatia, home">
+          <span class="brand-mark" aria-hidden="true">NB</span>
+          <span class="brand-name">Navya Bhatia</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+        </nav>
+        <a class="nav-contact" href="mailto:navya.bhatia@gmail.com">Let’s talk</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="availability"><span aria-hidden="true"></span> Open to analytics opportunities</p>
+            <h1 id="hero-title">I turn messy data into <em>clear decisions.</em></h1>
+            <p class="hero-lead">
+              Business Analytics graduate student building predictive models, interactive dashboards,
+              and practical AI solutions—from raw data to stakeholder-ready action.
+            </p>
+            <div class="hero-actions" aria-label="Contact and profile links">
+              <a class="button button--primary" href="mailto:navya.bhatia@gmail.com">
+                Start a conversation
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>
+              </a>
+              <a
+                class="button button--secondary"
+                href="https://www.linkedin.com/in/navya-bhatia-b25b26228"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="hero-location">San Francisco Bay Area · M.S. Business Analytics at Santa Clara University</p>
+          </div>
+
+          <aside class="signal-card" aria-label="Career highlights">
+            <div class="signal-card__topline">
+              <span>Candidate snapshot</span>
+              <span class="signal-card__status">2026</span>
+            </div>
+            <div class="signal-card__metric signal-card__metric--featured">
+              <strong>89.2%</strong>
+              <span>forecast accuracy lift vs. baseline</span>
+            </div>
+            <div class="signal-card__row">
+              <div class="signal-card__metric">
+                <strong>6.4K+</strong>
+                <span>samples modeled</span>
+              </div>
+              <div class="signal-card__metric">
+                <strong>2nd</strong>
+                <span>analytics showdown</span>
+              </div>
+            </div>
+            <div class="signal-card__footer">
+              <span>Python</span><span>SQL</span><span>Tableau</span><span>ML</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
     <script src="./script.js" defer></script>
   </body>
 </html>
-
