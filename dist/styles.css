@@ -525,7 +525,8 @@ select {
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
 
-.project-card:hover {
+.project-card:hover,
+.has-reveal .project-card.is-visible:hover {
   border-color: var(--line-strong);
   box-shadow: var(--shadow-sm);
   transform: translateY(-4px);
@@ -1030,6 +1031,10 @@ select {
   text-underline-offset: 0.3rem;
 }
 
+.button--light {
+  overflow-wrap: anywhere;
+}
+
 .site-footer {
   padding-block: 2rem;
   background: var(--blue-deep);
@@ -1217,6 +1222,95 @@ select {
 
   .workflow-step:nth-child(-n + 2) {
     border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .has-reveal .value-item,
+  .has-reveal .project-card,
+  .has-reveal .workflow-step,
+  .has-reveal .timeline-item,
+  .has-reveal .education-card,
+  .has-reveal .certifications {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .brand-mark,
+  .nav-contact,
+  .button,
+  .project-card,
+  .workflow,
+  .education-card,
+  .certifications {
+    border: 1px solid ButtonText;
+  }
+}
+
+@media print {
+  :root {
+    --ink: #000;
+    --muted: #333;
+    --subtle: #555;
+  }
+
+  body::before,
+  .site-header,
+  .scroll-progress,
+  .hero::after,
+  .contact,
+  .site-footer {
+    display: none;
+  }
+
+  .hero,
+  .section {
+    padding-block: 2rem;
+  }
+
+  .hero-grid,
+  .section-heading-row,
+  .experience-grid,
+  .education-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .signal-card,
+  .project-card,
+  .workflow,
+  .education-card,
+  .certifications {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .experience-intro {
+    position: static;
+  }
+
+  .has-reveal .value-item,
+  .has-reveal .project-card,
+  .has-reveal .workflow-step,
+  .has-reveal .timeline-item,
+  .has-reveal .education-card,
+  .has-reveal .certifications {
+    opacity: 1;
+    transform: none;
   }
 }
 
